@@ -33,10 +33,15 @@ public class FindDistinctEmployeeUsingStream {
         employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
         employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
 
-        //Set<Employee> newEmpSet = employeeList.stream().filter(e->e.getGender().equals("Male") || e.getGender().equals("Female")).collect(Collectors.toSet());
+        Set<Employee> newEmpSet = employeeList.stream().filter(e->e.getGender().equals("Male") || e.getGender().equals("Female")).collect(Collectors.toSet());
         //Set<Employee> newEmpSetByAge = employeeList.stream().collect(Collectors.maxBy(Comparator.comparingInt(Employee::getAge))).stream().collect(Collectors.toSet());
-        //newEmpSet.forEach(System.out::println);
-        Stream str = null;
-        employeeList.stream().collect(Collectors.maxBy(Comparator.comparingInt(Employee::getAge))).stream().distinct().collect(Collectors.toList()).forEach(System.out::println);
+        newEmpSet.forEach(System.out::println);
+        employeeList.stream().map(Employee::getDepartment).distinct().forEach(System.out::println);
+        employeeList.stream().collect(Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))).stream().forEach(System.out::println);
+        employeeList.stream().collect(Collectors.groupingBy(Employee::getGender,Collectors.counting())).entrySet().stream().forEach(System.out::println);
+        employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment,Collectors.counting())).entrySet().stream().forEach(System.out::println);
+        employeeList.stream().collect(Collectors.groupingBy(Employee::getGender,Collectors.averagingInt(Employee::getAge))).entrySet().stream().forEach(System.out::println);
+        //Stream str = null;
+        //employeeList.stream().collect(Collectors.maxBy(Comparator.comparingInt(Employee::getAge))).stream().distinct().collect(Collectors.toList()).forEach(System.out::println);
     }
 }
